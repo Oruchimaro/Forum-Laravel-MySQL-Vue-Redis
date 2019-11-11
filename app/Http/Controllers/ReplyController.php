@@ -19,8 +19,12 @@ class ReplyController extends Controller
     /**
      * Store a new reply for a given thread
      * Doc->4
+     * 
+     * @param $channelId
+     * @param Thread $thread
+     * @return \RedirectResponse
      */
-    public function store(Thread $thread)
+    public function store($channelId, Thread $thread)
     {
         $thread->addReply([
             'body' => request('body'),

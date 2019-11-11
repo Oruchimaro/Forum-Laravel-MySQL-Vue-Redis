@@ -55,4 +55,18 @@
     to instanciate a new **reply** instance and then calls to **create** method on it.
 
     so in **Replycontroller** when **store** method takes the instance of given **thread**
-    **addReply** method is already called, it takes 2 extra prameters like **user_id** and **body**, then creates a new reply. 
+    **addReply** method is already called, it takes 2 extra prameters like **user_id** and **body**, then creates a new reply.
+
+
+### 5.A thread blongs to a channel (configuring channel or category concept):
+    Thus far we have thread and reply, but now we want to assign each thread to a **channel** or a **category**, meaning a **thread** needs to **belongTo** a **channel**.
+
+    so lets create a model and migration for channel.
+    then we create a table for it and add a factory for it, then in thread factroy we add a **channel_id** field and use the factory created to add a id to it.
+
+    then we want to make all the thread routes to be subcategorized with channels.
+    then we fix the controller methods assosiated with those routes. now the **path()** method in models should be updated.
+
+    now if we seed database using factory and tinker we should be able to see the threads and add replies to them.
+
+    then for creating new threads, 
