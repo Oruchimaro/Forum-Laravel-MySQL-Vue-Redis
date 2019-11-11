@@ -12,14 +12,24 @@
     Clone this repository using git from the master branch.
     Cd into the directory.
     Use this commands
-        ```
-            composer install
+        ```PHP
+            $ composer install
             npm install
             create a .env file using .env.example and edit it.
             php artisan migrate
             php artisan serve
             
         ```
+
+## Seeding Database
+    For seeding database fire up tinker and user factory to create a bunch of threads
+
+    ```PHP
+        $ php artisan tinker
+
+        $threads = factory('App\Thread', 20)->create();
+        $threads->each(function($thread){factory('App\Reply', 10)->create(['thread_id' => $thread->id]);})
+    ```
 
 ## Documentation
     This project is documented using infile documents and Doc.md file.
