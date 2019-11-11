@@ -69,4 +69,5 @@
 
     now if we seed database using factory and tinker we should be able to see the threads and add replies to them.
 
-    then for creating new threads, 
+    then for creating new threads, we can go to the **create** route and do the selecting stuff.
+    
