@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-5">
         <div class="col-md-8">
             @foreach ($thread->replies as $reply)            
                 @include('threads.reply')
