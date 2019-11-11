@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
+    protected $guarded = [];
+
+
     /**
      * Relation For Reply and User.
      * A Reply belons to a User.
@@ -16,4 +19,6 @@ class Reply extends Model
     {
         return $this->belongsTo(User::class, 'user_id'); //foreign-key is user_id
     }
+
+    
 }

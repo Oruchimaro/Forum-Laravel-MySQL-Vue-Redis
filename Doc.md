@@ -41,7 +41,18 @@
     this is useful when in near future wew switch from using **id** to **slug**, we can simply change the **id** in path() method to **slug**.
     
 
-### 3.why in reply model we specified the user_id ?
+### 3.why in reply and thread model we specified the user_id on relationships (owner,creator)?
     Because we used the **owner** for the name of the relationship instead of **user**
     we need to specify that the foreign key is **user_id** and not **owner_id**, cause laravel would search for foreign-key based on the methods name.
     we could use **user** and leave it as it was, but **owner** seems better for clean code. 
+
+
+### 4.What is addReply in thread model?
+    So when we want to add a new reply for a thread, instead of throwing around variablesa or 
+    making our controllers filled with shit code, we can make laravel do our heavy lifting.
+    so here when we hit the route **/threads/{thread}/replies** with a post request,
+    the controller will take the **thread** instance, then we add the **addReply** method to the **Thread** model. that **addReply** method will use the relation defined on model
+    to instanciate a new **reply** instance and then calls to **create** method on it.
+
+    so in **Replycontroller** when **store** method takes the instance of given **thread**
+    **addReply** method is already called, it takes 2 extra prameters like **user_id** and **body**, then creates a new reply. 
