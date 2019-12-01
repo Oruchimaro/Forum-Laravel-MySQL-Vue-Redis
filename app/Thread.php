@@ -56,8 +56,23 @@ class Thread extends Model
     }
 
 
+    /**
+     * Add a reply to the thread
+     * create a reply instance and save it
+     */
     public function addReply($reply)
     {
         $this->replies()->create($reply);
+    }
+
+
+
+    /**
+     * Query scope on thread
+     */
+
+    public function scopeFilter($query, $filters)
+    {
+        return $filters->apply($query);
     }
 }
