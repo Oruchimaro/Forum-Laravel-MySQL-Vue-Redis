@@ -19,20 +19,10 @@ class ThreadController extends Controller
 
 
 
-    /**
-     * Display a listing of the resource.
-     * @param Channel $channel
-     * @return \Illuminate\Http\Response
-     */
+    /** */
     public function index(Channel $channel)
     {
-        if($channel->exists)
-        {
-            $threads = $channel->threads()->latest()->get();
-        }else
-        {
-            $threads = Thread::latest()->get();
-        }
+        $threads = $this->getThreads($channel);
 
         return view('threads.index', compact('threads'));
     }
@@ -116,5 +106,28 @@ class ThreadController extends Controller
     public function destroy(Thread $thread)
     {
         //
+    }
+
+
+    protected function getThreads($channel)
+    {
+        if($channel->exists)
+        {
+            $threads = $channel->threads()->latest();
+        }else
+        {
+            $threads = Thread::latest();
+        }
+
+        //if request('by'), we would filter by given username
+        if($username = request('by'))
+        {
+            $user = \App\User::where('name', $username)->firstOrFail();
+            $threads->where('user_id', $user->id );
+        }
+
+
+        $threads = $threads->get();
+        return $threads;
     }
 }
