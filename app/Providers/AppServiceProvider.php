@@ -6,23 +6,20 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
     public function register()
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
     public function boot()
     {
-        //
+        //Doc6
+        // \View::share('channels', \App\Channel::all());
+        /**Instead of using above code we will use the below one
+         * because it wont start the query until the view is loaded
+         */
+        \View::composer('*', function ($view){
+            $view->with('channels', \App\Channel::all());
+        });
     }
 }

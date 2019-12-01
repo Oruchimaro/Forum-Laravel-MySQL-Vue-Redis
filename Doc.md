@@ -71,3 +71,37 @@
 
     then for creating new threads, we can go to the **create** route and do the selecting stuff.
     
+
+### 6.Sharing a varible with views (specefic ones or all )
+    Here we want to share the channels varible to some views,
+     cause we dont want to query them for every view that needs it.
+
+    We will use ServiceProviders, in this case AppServiceProvider,
+    but we can add a dedicated service provider from artisan ,
+    then in boot() method we will add this code.
+
+    ```PHP
+        View::composer( 'the/views/that/we/want' , function ($view){
+            $view->with('var/name', 'query or var here');
+        });
+
+        //example
+        View::composer( 'create.thread' , function ($view){
+            $view->with('channels', \App\Channel::all());
+        });
+    ```
+    
+    Note that in first parameter we can specify a view or a array of views (['thread.create','thread.show'])  or pass a star ('*') for every view.
+
+    ```PHP
+        View::composer( '*' , function ($view){
+            $view->with('channels', \App\Channel::all());
+        });
+    ```
+
+    Or you can  use this format eigther.
+
+
+    ```PHP
+        View::share('channels, \App\Channel::all());
+    ```

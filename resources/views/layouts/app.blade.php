@@ -40,7 +40,7 @@
                               Channels
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @foreach (App\Channel::all() as $channel)
+                                @foreach ( $channels as $channel)  {{--$channelsDoc6--}}
                                  <a class="dropdown-item" href="/threads/{{ $channel->slug }}">
                                     {{$channel->name}}
                                 </a>
