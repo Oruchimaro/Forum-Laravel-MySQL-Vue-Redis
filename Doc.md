@@ -105,3 +105,13 @@
     ```PHP
         View::share('channels, \App\Channel::all());
     ```
+
+
+
+### 7.Adding a Global scope
+    So We want to have a query every time an instance of  a model is initiated
+    In order to do that we can fire up the boot() method on the desired model,
+    (note that boot method fires up automaticaly), then we can add a gloabal scope query 
+    in boot method and have it run every time.
+    In the thread model we added a repliesCount global scope , so we can have a the 
+    number of reolies on every Thread instance. 

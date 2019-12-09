@@ -8,6 +8,17 @@ class Thread extends Model
 {
     protected $guarded = [];
 
+    /**Doc7 */
+    protected static function boot()
+    {
+        parent::boot();
+
+        /**adding repliesCount to every Thread instance */
+        static::addGlobalScope('replyCount', function($builder){
+            $builder->withCount('replies'); 
+        });
+    }
+
     
     /**
      * Fetch a path to the current thread.

@@ -10,9 +10,13 @@
                 <div class="card-body">
                     @foreach ($threads as $thread)
                         <article>
-                            <a href="{{ $thread->path() }}">
-                                <h4> {{ $thread->title }} </h4>
-                            </a>
+                            <div>
+                                <h4 style="display:inline"><a class="lead" href="{{ $thread->path() }}"> {{ $thread->title }}</a></h4>
+
+                                <span class="badge badge-info">
+                                    {{ $thread->replies_count }} {{ Str::plural('Reply', $thread->replies_count) }}
+                                </span>
+                            </div>
                             <div class="body">{{ $thread->body }}</div>
                             
                         </article>
