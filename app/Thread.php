@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
-    protected $guarded = [];
+  protected $guarded = [];
+
+  protected $with = ['creator', 'channel'];  //Doc 8
 
     /**Doc7 */
     protected static function boot()
@@ -38,9 +40,7 @@ class Thread extends Model
      */
     public function replies()
     {
-	  return $this->hasMany(Reply::class)
-			->withCount('favorites')
-			->with('owner');
+	  return $this->hasMany(Reply::class);
     }
 
 
@@ -54,7 +54,6 @@ class Thread extends Model
     {
         return $this->belongsTo(User::class, 'user_id'); //foreign-key is user_id
     }
-
 
 
     /**

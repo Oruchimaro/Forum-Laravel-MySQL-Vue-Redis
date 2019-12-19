@@ -114,4 +114,14 @@
     (note that boot method fires up automaticaly), then we can add a gloabal scope query 
     in boot method and have it run every time.
     In the thread model we added a repliesCount global scope , so we can have a the 
-    number of reolies on every Thread instance. 
+    number of replies on every Thread instance. 
+
+
+
+### 8.Adding a $with array to Models.
+	When we want to add a global scope to all the querys for a model, we can use the boot() method of
+	the model and add a query for all instances and disable it for certain ones.as we did for
+	thread and replies count .
+	but when we want a relation to be queried with every instance and there is not a exeption
+	we can use the    $with  array on the model. this is  the same as saying I want to eager 
+	load this relation with every query.
