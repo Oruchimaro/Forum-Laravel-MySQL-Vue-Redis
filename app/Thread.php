@@ -8,12 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Thread extends Model
 {
 
-	use RecordsActivity;  //using recordActivity trait
+	use RecordsActivity;  // app\RecordActivity trait
 
+	/********************* Properties ***********************/
 
 	protected $guarded = [];
 
 	protected $with = ['creator', 'channel'];  //Doc 8
+
+
+	/********************* Methods ***********************/
 
 	/**Doc7 */
 	protected static function boot()
@@ -22,6 +26,7 @@ class Thread extends Model
 
 		/**adding repliesCount to every Thread instance */
 		static::addGlobalScope('replyCount', function ($builder) {
+
 			$builder->withCount('replies');
 		});
 
@@ -29,7 +34,8 @@ class Thread extends Model
 		/** find every reply associated to the thread that is going to be deleted
 		 * and delete them with it.*/
 		static::deleting(function ($thread) {
-			$thread->replies()->delete();
+
+			$thread->replies->each->delete();
 		});
 	}
 
@@ -43,6 +49,30 @@ class Thread extends Model
 		return '/threads/' . $this->channel->slug . '/' . $this->id;
 	}
 
+
+
+	/**
+	 * Add a reply to the thread
+	 * create a reply instance and save it
+	 */
+	public function addReply($reply)
+	{
+		$this->replies()->create($reply);
+	}
+
+
+
+	/**
+	 * Query scope on thread
+	 */
+
+	public function scopeFilter($query, $filters)
+	{
+		return $filters->apply($query);
+	}
+
+
+	/********************* Relationships ***********************/
 
 	/**
 	 * Relation for Thread and Reply.
@@ -76,26 +106,5 @@ class Thread extends Model
 	public function channel()
 	{
 		return $this->belongsTo(Channel::class);
-	}
-
-
-	/**
-	 * Add a reply to the thread
-	 * create a reply instance and save it
-	 */
-	public function addReply($reply)
-	{
-		$this->replies()->create($reply);
-	}
-
-
-
-	/**
-	 * Query scope on thread
-	 */
-
-	public function scopeFilter($query, $filters)
-	{
-		return $filters->apply($query);
 	}
 }
