@@ -39,3 +39,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+//we need the vue so we can use it below. originaly this is in app.js file
+window.Vue = require('vue');
+
+//here we fire our flash event and emit it to flash component
+window.events = new Vue();
+
+window.flash = function (message){
+  window.events.$emit('flash', message);
+};
