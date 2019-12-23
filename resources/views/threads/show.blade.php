@@ -17,6 +17,12 @@
 				<div class="card-body">
 					{{ $thread->body }}
 				</div>
+				<div class="card-footer">
+					<form action="{{ $thread->path() }}" method="POST">
+						@csrf
+						@method('DELETE')
+						<button type="submit" class="btn btn-danger">Delete</button>
+				</div>
 			</div>
 
 
