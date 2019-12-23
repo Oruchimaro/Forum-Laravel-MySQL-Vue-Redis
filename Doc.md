@@ -164,3 +164,19 @@
 		  });
 
 	```
+
+
+
+### 10.A Cool Trick for boot methods on Traits
+	For every trait that a model uses we can add the following method to it,
+	then Laravel would treat it as you have added the content of it to the 
+	models boot method itself.
+
+
+
+	```PHP
+	  protected static function boot<NameOFTrait>()
+	  {
+		#code
+	  }
+	```

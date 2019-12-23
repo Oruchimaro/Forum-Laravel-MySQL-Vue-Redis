@@ -2,10 +2,15 @@
 
 namespace App;
 
+//use App\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
+
+	use RecordsActivity;  //using recordActivity trait
+
+
 	protected $guarded = [];
 
 	protected $with = ['creator', 'channel'];  //Doc 8
@@ -27,7 +32,6 @@ class Thread extends Model
 			$thread->replies()->delete();
 		});
 	}
-
 
 	/**
 	 * Fetch a path to the current thread.
