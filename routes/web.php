@@ -9,7 +9,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
 Auth::routes();
@@ -25,3 +25,7 @@ Route::get('/threads/{channel}', 'ThreadController@index')->name('threads.channe
 
 Route::post('/threads/{channel}/{thread}/replies', 'ReplyController@store')->name('replies.store');
 Route::post('/replies/{reply}/favorites', 'FavoritesController@store')->name('replies.favorite');
+
+
+
+Route::get('/profiles/{user}', 'ProfilesController@show')->name('profiles.show');
