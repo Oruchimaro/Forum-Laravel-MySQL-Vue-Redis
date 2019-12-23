@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends ('layouts.app')
 
-@section('content')
+@section ('content')
 
 <div class="col-md-8 m-auto">
 	<div class="card">
@@ -11,22 +11,13 @@
 	</div>
 
 	<div class="col-md-11 mx-auto">
-		@foreach ( $threads as $thread )
-		<div class="card mt-2">
-			<div class="card-header">
-				<a href="{{ $thread->path() }}"> {{ $thread->title }} <a>
-						<span> {{ $thread->created_at->diffForHumans() }} </span>
-			</div>
-
-			<div class="card-body">
-				{{ $thread->body }}
-			</div>
-		</div>
+		@foreach ( $activities as $date => $activity)
+		<h3 style="color:#333;" class="my-5"> {{ $date }} </h3>
+		<hr>
+		@foreach ( $activity as $record )
+		@include ("profiles.activities.{$record->type}", ['activity' => $record])
 		@endforeach
-	</div>
-
-	<div class="m-5">
-		{{ $threads->links() }}
+		@endforeach
 	</div>
 </div>
 
