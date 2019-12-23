@@ -18,10 +18,13 @@
 					{{ $thread->body }}
 				</div>
 				<div class="card-footer">
+					@can('update', $thread)
 					<form action="{{ $thread->path() }}" method="POST">
 						@csrf
 						@method('DELETE')
 						<button type="submit" class="btn btn-danger">Delete</button>
+					</form>
+					@endcan
 				</div>
 			</div>
 

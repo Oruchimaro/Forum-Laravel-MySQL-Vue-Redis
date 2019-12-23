@@ -4,7 +4,7 @@
 <div class="container">
 	<div class="row justify-content-center">
 		<div class="col-md-8">
-			@foreach ($threads as $thread)
+			@forelse ($threads as $thread)
 			<div class="card mt-3">
 				<div class="card-header">
 					<h4 style="display:inline">
@@ -22,7 +22,9 @@
 					</article>
 				</div>
 			</div>
-			@endforeach
+			@empty
+			<p> There Is Nothing Here Yet.</p>
+			@endforelse
 		</div>
 	</div>
 </div>

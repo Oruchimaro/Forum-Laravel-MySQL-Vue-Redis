@@ -125,3 +125,42 @@
 	but when we want a relation to be queried with every instance and there is not a exeption
 	we can use the    $with  array on the model. this is  the same as saying I want to eager 
 	load this relation with every query.
+
+
+
+### 9.Adding an Admin Or superUser that every policy will check for it
+	We can have specefic rules for each policy method,
+	also we can have a general rule for a specefic policy .
+	for example we have 'ThreadPolicy'  so we can add this method to it.
+
+	```PHP
+	  public function before($user)
+	  {
+		if($user->is_admin === 0 )
+		{
+		  return true;
+		}
+	  }
+	```
+
+	this will return true for the user if he/she is a Author before any other methods.
+
+
+
+	Similarly we can add a user as Admin so he/she would be returned for all policies
+
+	In AuthServiceProvider in boot() we can add him.
+
+	```PHP
+	  
+	  Gate::before(function($user){
+			if($user->name === 'Amir') return true;
+		  });
+
+	  Or :
+
+	  Gate::before(function($user){
+			if($user->is_admin === 0) return true;
+		  });
+
+	```

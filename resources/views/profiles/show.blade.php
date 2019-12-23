@@ -14,7 +14,7 @@
 		@foreach ( $threads as $thread )
 		<div class="card mt-2">
 			<div class="card-header">
-				<a href="#"> {{ $thread->title }} <a>
+				<a href="{{ $thread->path() }}"> {{ $thread->title }} <a>
 						<span> {{ $thread->created_at->diffForHumans() }} </span>
 			</div>
 
