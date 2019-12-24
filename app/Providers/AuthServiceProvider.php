@@ -7,28 +7,30 @@ use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
-	/**
-	 * The policy mappings for the application.
-	 *
-	 * @var array
-	 */
-	protected $policies = [
-		// 'App\Model' => 'App\Policies\ModelPolicy',
-		'App\Thread' => 'App\Policies\ThreadPolicy',
-	];
+    /**
+     * The policy mappings for the application.
+     *
+     * @var array
+     */
+    protected $policies = [
+        // 'App\Model' => 'App\Policies\ModelPolicy',
+        'App\Thread' => 'App\Policies\ThreadPolicy',
+        'App\Reply' => 'App\Policies\ReplyPolicy',
 
-	/**
-	 * Register any authentication / authorization services.
-	 *
-	 * @return void
-	 */
-	public function boot()
-	{
-		$this->registerPolicies();
+    ];
 
-		//Doc 9
-		Gate::before(function ($user) {
-			if ($user->name === 'Amir') return true;
-		});
-	}
+    /**
+     * Register any authentication / authorization services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->registerPolicies();
+
+        //Doc 9
+        Gate::before(function ($user) {
+            if ($user->name === 'Amir') return true;
+        });
+    }
 }

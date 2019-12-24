@@ -9,7 +9,7 @@
 */
 
 Route::get('/', function () {
-	return view('welcome');
+    return view('welcome');
 });
 
 Auth::routes();
@@ -25,6 +25,8 @@ Route::delete('/threads/{channel}/{thread}', 'ThreadController@destroy')->name('
 Route::get('/threads/{channel}', 'ThreadController@index')->name('threads.channel');
 
 Route::post('/threads/{channel}/{thread}/replies', 'ReplyController@store')->name('replies.store');
+
+Route::delete('/replies/{reply}', 'ReplyController@destroy')->name('replies.delete');
 Route::post('/replies/{reply}/favorites', 'FavoritesController@store')->name('replies.favorite');
 
 
