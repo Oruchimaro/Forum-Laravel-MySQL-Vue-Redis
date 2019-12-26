@@ -10,17 +10,24 @@ use Illuminate\Support\Facades\DB;
 class FavoritesController extends Controller
 {
 
-  public function __construct()
-  {
-    $this->middleware('auth');
-  }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
 
-  public function store(Reply $reply)
-  {
-    //favorite method is on Reply model
-	$reply->favorite();
+    public function store(Reply $reply)
+    {
+        //favorite method is on Reply model
+        $reply->favorite();
 
-	return back();
-  }
+        return back();
+    }
+
+
+    public function destroy(Reply $reply)
+    {
+        //TODO : deleting a reply, should delete the favorited record in db
+        $reply->unfavorite();
+    }
 }

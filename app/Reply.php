@@ -13,6 +13,10 @@ class Reply extends Model
 
     protected $with = ['owner', 'favorites']; //Docs 8
 
+    //when you cast to an array or json is there any custom attribute that u want to
+    //append to it ? then use appends attribute to add any custom attribute to
+    protected $appends = ['favoritesCount', 'isFavorited'];
+
 
     /**
      * Relation For Reply and User. A Reply belons to a User.

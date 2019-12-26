@@ -8,14 +8,7 @@
                 <span class="text-muted">{{ $reply->created_at->diffForHumans() }}... </span>
             </div>
             <div>
-                <form action="{{ route('replies.favorite', $reply->id) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-sm btn-secondary" {{ $reply->isFavorited() ? 'disabled' : '' }}>
-
-                        {{ $reply->favorites_count }}
-                        {{ Str::plural('Favorite',  $reply->favorites_count ) }}
-                    </button>
-                </form>
+                <favorite :reply="{{ $reply }}"></favorite>
             </div>
         </div>
         <div class="card-body" style="color:darkslateblue">
