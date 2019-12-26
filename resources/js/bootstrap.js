@@ -43,6 +43,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //we need the vue so we can use it below. originaly this is in app.js file
 window.Vue = require('vue');
 
+//sharing a data accros all vue instances
+window.Vue.prototype.authorize = function(handler){
+    //additional admin privileges goes here if u want
+    let user = window.App.user;
+
+    return user ? handler(user) : false;
+};
 //here we fire our flash event and emit it to flash component
 window.events = new Vue();
 
