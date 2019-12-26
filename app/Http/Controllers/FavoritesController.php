@@ -27,7 +27,6 @@ class FavoritesController extends Controller
 
     public function destroy(Reply $reply)
     {
-        //TODO : deleting a reply, should delete the favorited record in db
         $reply->unfavorite();
     }
 }

@@ -7,9 +7,11 @@
                 </a> said
                 <span class="text-muted">{{ $reply->created_at->diffForHumans() }}... </span>
             </div>
+            @auth
             <div>
                 <favorite :reply="{{ $reply }}"></favorite>
             </div>
+            @endauth
         </div>
         <div class="card-body" style="color:darkslateblue">
             <div v-if="editing">

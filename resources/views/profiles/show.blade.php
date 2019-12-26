@@ -11,7 +11,7 @@
     </div>
 
     <div class="col-md-11 mx-auto">
-        @foreach ( $activities as $date => $activity)
+        @forelse ( $activities as $date => $activity)
         <h3 style="color:#333;" class="my-5"> {{ $date }} </h3>
         <hr>
 
@@ -20,7 +20,9 @@
         @include ("profiles.activities.{$record->type}", ['activity' => $record])
         @endif
         @endforeach
-        @endforeach
+        @empty
+        <h5 class="text-muted m-4"> There is no Activity here YET!!! </h5>
+        @endforelse
     </div>
 </div>
 
