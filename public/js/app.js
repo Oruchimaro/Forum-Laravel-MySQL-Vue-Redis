@@ -1908,7 +1908,14 @@ __webpack_require__.r(__webpack_exports__);
         body: this.body
       });
       this.editing = false;
-      flash('Updated the reply');
+      flash('Updated the reply !!!');
+    },
+    destroy: function destroy() {
+      axios["delete"]('/replies/' + this.attributes.id); //fadeOut using jquery
+
+      $(this.$el).fadeOut(300, function () {
+        flash('Reply Deleted !!!');
+      });
     }
   }
 });

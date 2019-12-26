@@ -46,7 +46,9 @@ class ReplyController extends Controller
 
         $reply->update(Request(['body']));
 
-        return response()->json(['updated', 200]); //->with('flash', 'reply updated');
+        return response()->json([
+            'status' => 'Reply Updated !!!'
+        ]);
     }
 
 
@@ -56,6 +58,10 @@ class ReplyController extends Controller
         $this->authorize('update', $reply);
 
         $reply->delete();
+
+        if (request()->expectsJson()) {
+            return response(['status' => 'Reply Deleted']);
+        }
 
         return back()->with('flash', 'The Reply has been deleted!!!');
     }
