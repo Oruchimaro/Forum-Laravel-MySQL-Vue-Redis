@@ -30,24 +30,8 @@
                 </div>
 
 
-                <replies :data="{{ $thread->replies }}" @removed="repliesCount--"></replies>
+                <replies :data="{{ $thread->replies }}" @added="repliesCount++" @removed="repliesCount--"></replies>
 
-                {{--<!-- Pagination Links For Replies -->
-            {{ $replies->links() }} --}}
-
-
-                <!-- Add A Reply -->
-                @if (auth()->check())
-                <form action="{{ $thread->path() . '/replies' }}" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <textarea name="body" id="body" rows="10" placeholder="have anything to say..." class="form-control"></textarea>
-                    </div>
-                    <button class="btn btn-primary" type="submit">Post</button>
-                </form>
-                @else
-                <p>Please <a href="{{ route('login') }}">Sign In</a> to participate!!!</p>
-                @endif
 
             </div>
 
