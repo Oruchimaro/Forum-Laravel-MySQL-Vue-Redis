@@ -8,23 +8,24 @@ use App\Thread;
 
 class ReplyController extends Controller
 {
-    /**
-     * Protect this Controller with auth middleware
-     */
+
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => 'index']);
     }
 
 
-    /**
-     * Store a new reply for a given thread
-     * Doc->4
-     * 
-     * @param $channelId
-     * @param Thread $thread
-     * @return \RedirectResponse
-     */
+
+
+    public function index($channelId, Thread $thread)
+    {
+        return $thread->replies()->paginate(10);
+    }
+
+
+
+
+
     public function store($channelId, Thread $thread)
     {
         $this->validate(request(), [
@@ -37,18 +38,25 @@ class ReplyController extends Controller
             'user_id' => auth()->id()
         ]);
 
+
         if (request()->expectsJson()) {
             return $reply->load('owner');
         }
 
+
         return back()->with('flash', 'Your Reply has been left!!!');
     }
+
+
+
+
 
     public function update(Reply $reply)
     {
         $this->authorize('update', $reply);
 
         $reply->update(Request(['body']));
+
 
         return response()->json([
             'status' => 'Reply Updated !!!'
@@ -63,9 +71,12 @@ class ReplyController extends Controller
 
         $reply->delete();
 
+
         if (request()->expectsJson()) {
             return response(['status' => 'Reply Deleted']);
         }
+
+
 
         return back()->with('flash', 'The Reply has been deleted!!!');
     }

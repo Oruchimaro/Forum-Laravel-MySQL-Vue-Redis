@@ -4,18 +4,16 @@
     Here we are creating a **Forum** app using **Laravel 6** nd **Vue js** .We are implementing the  Object Oriented Programming concept in this app.
 
 ## How to use this?
-    This project is version controlled via Azure Devops platform and Git.
-    Every change is done in a seprate branch, after completing its merged with master branch.
-    This means after completion there will be 102 commits and as many branches as nessecerry.
-
+    This project is version controlled via Azure Devops and github platform and Git.
 ## Installation:
     Clone this repository using git from the master branch.
     Cd into the directory.
     Use this commands
         ```PHP
             $ composer install
-            npm install
+            $ npm install
             create a .env file using .env.example and edit it.
+            $ php artisan key:generate
             php artisan migrate
             php artisan serve
             
