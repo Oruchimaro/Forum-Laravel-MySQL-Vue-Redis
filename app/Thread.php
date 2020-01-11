@@ -66,6 +66,23 @@ class Thread extends Model
     }
 
 
+
+    public function subscribe($userId = null)
+    {
+        $this->subscriptions()->create([
+            'user_id'  => $userId ?: auth()->id()
+        ]);
+    }
+
+
+    public function unsubscribe($userId = null)
+    {
+        $this->subscriptions()
+            ->where('user_id', $userId ?: auth()->id())
+            ->delete();
+    }
+
+
     /********************* Relationships ***********************/
 
     /**
@@ -100,5 +117,12 @@ class Thread extends Model
     public function channel()
     {
         return $this->belongsTo(Channel::class);
+    }
+
+
+    /** A thread can have many subscribers(subscriptions) */
+    public function subscriptions()
+    {
+        return $this->hasMany(ThreadSubscriptions::class);
     }
 }
