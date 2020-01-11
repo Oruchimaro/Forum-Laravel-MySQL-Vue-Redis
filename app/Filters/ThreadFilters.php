@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Filters;
+
 use App\User;
 
 class ThreadFilters extends Filters
 {
-    protected $filters = ['by', 'popular'];
+    protected $filters = ['by', 'popular', 'unanswered'];
     /**
      * Filter Query by a username
      * @param string $username
@@ -15,7 +16,7 @@ class ThreadFilters extends Filters
     {
         $user = User::where('name', $username)->firstOrFail();
 
-        return $this->builder->where('user_id', $user->id ); 
+        return $this->builder->where('user_id', $user->id);
     }
 
 
@@ -29,4 +30,12 @@ class ThreadFilters extends Filters
 
         return $this->builder->orderBy('replies_count', 'desc');
     }
+
+
+    /** Filter the Query according to unanswered threads */
+    public function unanswered()
+    {
+        return $this->builder->where('replies_count', 0);
+    }
 }
+

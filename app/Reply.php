@@ -18,6 +18,21 @@ class Reply extends Model
     protected $appends = ['favoritesCount', 'isFavorited'];
 
 
+    /** Overriding the parent boot method */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($reply) {
+            $reply->thread->increment('replies_count');
+        });
+
+        static::deleted(function ($reply) {
+            $reply->thread->decrement('replies_count');
+        });
+    }
+
+
     /**
      * Relation For Reply and User. A Reply belons to a User.
      * Docs->3

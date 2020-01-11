@@ -24,12 +24,6 @@ class Thread extends Model
     {
         parent::boot();
 
-        /**adding repliesCount to every Thread instance */
-        static::addGlobalScope('replyCount', function ($builder) {
-
-            $builder->withCount('replies');
-        });
-
 
         /** find every reply associated to the thread that is going to be deleted
          * and delete them with it.*/
