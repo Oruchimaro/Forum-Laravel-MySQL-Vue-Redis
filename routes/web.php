@@ -32,6 +32,7 @@ Route::post('/replies/{reply}/favorites', 'FavoritesController@store')->name('re
 Route::delete('/replies/{reply}/favorites', 'FavoritesController@destroy')->name('replies.unfavorite');
 
 Route::post('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsController@store')->name('subscribe')->middleware('auth');
+Route::delete('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsController@destroy')->name('unsubscribe')->middleware('auth');
 
 Route::get('/profiles/{user}', 'ProfilesController@show')->name('profiles.show');
 

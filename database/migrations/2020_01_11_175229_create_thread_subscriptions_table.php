@@ -18,6 +18,11 @@ class CreateThreadSubscriptionsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('thread_id');
             $table->timestamps();
+
+            //define a uniqe combo of user_id and thread_id to prevent duplicate
+            $table->unique(['user_id', 'thread_id']);
+
+            //define a foreign key
             $table->foreign('thread_id')
                 ->references('id')
                 ->on('threads')

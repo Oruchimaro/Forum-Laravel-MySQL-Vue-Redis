@@ -12,4 +12,10 @@ class ThreadSubscriptionsController extends Controller
     {
         $thread->subscribe();
     }
+
+    /** unSubscribe  a user from a thread */
+    public function destroy($channelId, Thread $thread)
+    {
+        $thread->unsubscribe();
+    }
 }
