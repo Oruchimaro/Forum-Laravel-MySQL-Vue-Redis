@@ -107,6 +107,13 @@ class Thread extends Model
     }
 
 
+    public function hasUpdatesFor($user)
+    {
+        $user = $user ?: auth()->user();
+        $key = $user->visitedThreadCacheKey($this);
+
+        return $this->updated_at > cache($key);
+    }
     /********************* Relationships ***********************/
 
     /**

@@ -66,6 +66,11 @@ class ThreadController extends Controller
 
     public function show($channel, Thread $thread)
     {
+        //recording if the user has read the latest update of the thread.
+        if (auth()->check()) {
+            auth()->user()->read($thread);
+        }
+
         return view('threads.show', compact('thread'));
     }
 
