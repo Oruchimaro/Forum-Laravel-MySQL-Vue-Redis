@@ -1,17 +1,27 @@
 <template>
-<div>
-<div v-if="signedIn">
-<div class="form-group">
-<textarea v-model="body"  placeholder="have anything to say..." name="body"
-id="body" rows="10" class="form-control" ></textarea>
-</div>
-<button  @click="addReply" class="btn btn-primary" >Post</button>
-</div>
-<div v-else>
-    <p> Olease <a href="/login">Sign In</a> To contribute</p>
-</div>
-</div>
+    <div>
+        <div v-if="signedIn">
+            <div class="form-group">
+                <textarea v-model="body" 
+                          placeholder="have anything to say..." 
+                          name="body" 
+                          id="body" 
+                          rows="10" 
+                          class="form-control">
+                </textarea>
+            </div>
+
+            <button  @click="addReply" class="btn btn-primary" >Post</button>
+            <button class="btn btn-danger" @click="cancel"> Cancel </button>
+
+        </div>
+
+        <div v-else>
+            <p> Olease <a href="/login">Sign In</a> To contribute</p>
+        </div>
+    </div>
 </template>
+
 <script>
 export default {
     data() {
@@ -23,13 +33,19 @@ export default {
     methods: {
         addReply() {
             axios.post(location.pathname+'/replies', { body: this.body })
-                .then( res => {
-                    this.body = '';
+            .catch(error => {
+                flash(error.response.data, 'danger');
+            })
+            .then(({ data }) => {
+                this.body = "";
+                flash("Your reply has been posted");
+                this.$emit("created", data);
+            });
+        },
 
-                    flash('Your Reply has been Posted !');
-
-                    this.$emit('created', res.data);
-                });
+        cancel() {
+            this.editing = false;
+            this.body = "";
         }
     },
 

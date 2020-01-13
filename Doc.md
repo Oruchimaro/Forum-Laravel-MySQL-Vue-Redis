@@ -180,3 +180,9 @@
 		#code
 	  }
 	```
+
+### 11. Spam detection now can be easily done
+    Visit App\Inspections folder, add a new class for your Spam type.
+    handle the logic inside a detect() method.
+    then add your class to Spam.php array of inspections.
+    it will automatically be done.

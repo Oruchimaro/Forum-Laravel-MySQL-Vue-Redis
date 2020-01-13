@@ -19,7 +19,7 @@
                     <textarea class="form-control" v-model="body"></textarea>
                 </div>
                 <button class="btn btn-sm btn-success" @click="update"> Update </button>
-                <button class="btn btn-sm btn-danger" @click=" editing = false "> Cancel </button>
+                <button class="btn btn-sm btn-danger" @click="cancel"> Cancel </button>
             </div>
 
             <div v-else v-text="body"></div>
@@ -69,13 +69,21 @@
         },
         methods: {
              update(){
-                 axios.patch('/replies/' + this.data.id, {body: this.body
-                         });
+                 axios.patch('/replies/' + this.data.id, {body: this.body})
+                     .catch(error => {
+                         flash(error.response.data, 'danger');
+                         this.cancel();
+                     });
                  
                  this.editing = false;
 
                  flash('Updated the reply !!!');
              },
+
+            cancel() {
+                this.editing = false;
+                this.body = this.data.body;
+            },
 
 
              destroy(){

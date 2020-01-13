@@ -30,18 +30,20 @@ class ReplyController extends Controller
 
     public function store($channelId, Thread $thread)
     {
-        $this->validateReply();
+        try {
 
-        $reply = $thread->addReply([
-            'body' => request('body'),
-            'user_id' => auth()->id()
-        ]);
+            $this->validateReply();
 
-        if (request()->expectsJson()) {
-            return $reply->load('owner');
+            $reply = $thread->addReply([
+                'body' => request('body'),
+                'user_id' => auth()->id()
+            ]);
+        } catch (\Exception $e) {
+
+            return response('Sorry, Reply couldnt be saved at this time !', 422);
         }
 
-        return back()->with('flash', 'Your Reply has been left!!!');
+        return $reply->load('owner');
     }
 
 
@@ -52,10 +54,15 @@ class ReplyController extends Controller
     {
         $this->authorize('update', $reply);
 
-        $this->validateReply();
+        try {
 
-        $reply->update(Request(['body']));
+            $this->validateReply();
 
+            $reply->update(Request(['body']));
+        } catch (\Exception $e) {
+
+            return response('Sorry, Reply Couldnt be updated at this time !', 422);
+        }
 
         return response()->json([
             'status' => 'Reply Updated !!!'

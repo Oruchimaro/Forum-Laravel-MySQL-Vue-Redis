@@ -1,10 +1,13 @@
 <template>
-<div class="alert alert-success alert-flash alert-dismissible" role="alert" v-show="show">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-  </button>
-  <strong>Success!</strong> {{ body }}
-</div>
+    <div class="alert alert-flash alert-dismissible" 
+        :class="'alert-'+level" 
+        role="alert" 
+        v-show="show" v-text="body">
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 </template>
 
 <script>
@@ -13,7 +16,8 @@
 
 	  data(){
 		  return {
-			body:  this.message,
+			body:  '',
+            level: 'success',
 			show:  false
 		  }
 		},
@@ -25,14 +29,14 @@
 
 
 		  //here we listen for the flash event
-		  window.events.$on('flash', message => this.flash(message));
+		  window.events.$on('flash', data => this.flash(data));
         },
 
 		methods: {
 		   
-
-		   flash(message){
-			  this.body = message;
+		   flash(data){
+			  this.body = data.message;
+              this.level = data.level;
 			  this.show = true;
 
 			  this.hide();
