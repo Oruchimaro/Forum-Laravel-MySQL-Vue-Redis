@@ -28,26 +28,18 @@ class ReplyController extends Controller
 
 
 
-    public function store($channelId, Thread $thread, Spam $spam)
+    public function store($channelId, Thread $thread)
     {
-        $this->validate(request(), [
-            'body' => 'required'
-        ]);
-
-
-        //detect spam using Spam class
-        $spam->detect(request('body'));
+        $this->validateReply();
 
         $reply = $thread->addReply([
             'body' => request('body'),
             'user_id' => auth()->id()
         ]);
 
-
         if (request()->expectsJson()) {
             return $reply->load('owner');
         }
-
 
         return back()->with('flash', 'Your Reply has been left!!!');
     }
@@ -59,6 +51,8 @@ class ReplyController extends Controller
     public function update(Reply $reply)
     {
         $this->authorize('update', $reply);
+
+        $this->validateReply();
 
         $reply->update(Request(['body']));
 
@@ -84,5 +78,16 @@ class ReplyController extends Controller
 
 
         return back()->with('flash', 'The Reply has been deleted!!!');
+    }
+
+
+    public function validateReply()
+    {
+        $this->validate(request(), [
+            'body' => 'required'
+        ]);
+
+        //detect spam using Spam class
+        resolve(Spam::class)->detect(request('body'));
     }
 }
