@@ -57,7 +57,11 @@ class Handler extends ExceptionHandler
 
 
         if ($exception instanceof ThrottleException) {
-            return response('You are Posting Too Frequently !!!', 429);
+            //return response('You are Posting Too Frequently !!!', 429);
+            return response()->json([
+                'message' => 'new message from exception handler',
+                'errors' =>  ['body' => ['You are Posting Too Frequently !!!']]
+            ], 429);
         }
 
 
