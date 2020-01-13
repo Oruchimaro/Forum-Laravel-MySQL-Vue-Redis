@@ -25,6 +25,11 @@ class ReplyController extends Controller
 
     public function store($channelId, Thread $thread)
     {
+        //protect against spam creating replies
+        if (Gate::denies('create', new Reply)) {
+            return response('You are posting Too Frequently, Take a break :)', 422);
+        }
+
         try {
             request()->validate(['body' => 'required|spamfree']);
 
