@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Forms\CreatePostForm;
+//use App\Http\Forms\CreatePostForm;
+use App\Http\Requests\CreatePostRequest;
 use App\Reply;
 use Illuminate\Http\Request;
 use App\Thread;
@@ -24,9 +25,12 @@ class ReplyController extends Controller
 
 
 
-    public function store($channelId, Thread $thread, CreatePostForm $form)
+    public function store($channelId, Thread $thread, CreatePostRequest $form)
     {
-        return $form->persist($thread);
+        return $thread->addReply([
+            'body' => request('body'),
+            'user_id' => auth()->id()
+        ])->load('owner');
     }
 
 

@@ -33,8 +33,8 @@ export default {
     methods: {
         addReply() {
             axios.post(location.pathname+'/replies', { body: this.body })
-            .catch(error => {
-                flash(error.response.data, 'danger');
+            .catch(errors => {
+                flash(errors.response.data.errors.body[0], 'danger');
             })
             .then(({ data }) => {
                 this.body = "";
