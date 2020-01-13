@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Forms\CreatePostForm;
 use App\Reply;
 use Illuminate\Http\Request;
 use App\Thread;
@@ -23,29 +24,10 @@ class ReplyController extends Controller
 
 
 
-    public function store($channelId, Thread $thread)
+    public function store($channelId, Thread $thread, CreatePostForm $form)
     {
-        //protect against spam creating replies
-        if (Gate::denies('create', new Reply)) {
-            return response('You are posting Too Frequently, Take a break :)', 422);
-        }
-
-        try {
-            request()->validate(['body' => 'required|spamfree']);
-
-            $reply = $thread->addReply([
-                'body' => request('body'),
-                'user_id' => auth()->id()
-            ]);
-        } catch (\Exception $e) {
-
-            return response('Sorry, Reply couldnt be saved at this time !', 422);
-        }
-
-        return $reply->load('owner');
+        return $form->persist($thread);
     }
-
-
 
 
 

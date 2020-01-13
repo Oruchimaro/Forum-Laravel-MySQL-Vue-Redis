@@ -198,3 +198,26 @@
 
     then we can use the validation in controller like before
     request()->validate(['attr' => 'crule']);
+
+
+
+### Creaing a Dedicated PostFormRequest 
+    a dedicated post form request is responsible for validating,
+    authorizing and persisting form data to database.
+    so our controller can be clean .
+
+    $ php artisan make:request CreatePostForm 
+    then move it to a dedicated folder so it can be specified.
+    App\Http\Forms for example
+    then we can move the logic for authorizing and validating to it.
+    then we will add a persist() method and it will persist data to database.
+
+    its difrent from normal request is the persist method.
+
+
+### we can add a new Exception
+    We can add a new Exception class to App\Exceptions manulay 
+    or by using $ php artisan make:exception 
+
+    then we can handle it in handler.php 
+    This is very basic and can be used when we are using js.

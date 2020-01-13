@@ -2,8 +2,10 @@
 
 namespace App\Exceptions;
 
+use Dotenv\Exception\ValidationException;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use App\Exceptions\ThrottleException;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +48,19 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // we are using javascript and dont need a general redirect,so... 
+        if ($exception instanceof ValidationException) {
+            if ($request->wantsJson()) {
+                return response('Sorry, Validation Failed !', 422);
+            }
+        }
+
+
+        if ($exception instanceof ThrottleException) {
+            return response('You are Posting Too Frequently !!!', 429);
+        }
+
+
         return parent::render($request, $exception);
     }
 }
