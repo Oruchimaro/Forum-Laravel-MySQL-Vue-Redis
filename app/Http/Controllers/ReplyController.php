@@ -6,7 +6,6 @@ use App\Reply;
 use Illuminate\Http\Request;
 use App\Thread;
 use Illuminate\Support\Str;
-use App\Inspections\Spam;
 
 class ReplyController extends Controller
 {
@@ -17,8 +16,6 @@ class ReplyController extends Controller
     }
 
 
-
-
     public function index($channelId, Thread $thread)
     {
         return $thread->replies()->paginate(10);
@@ -26,13 +23,10 @@ class ReplyController extends Controller
 
 
 
-
-
     public function store($channelId, Thread $thread)
     {
         try {
-
-            $this->validateReply();
+            request()->validate(['body' => 'required|spamfree']);
 
             $reply = $thread->addReply([
                 'body' => request('body'),
@@ -56,7 +50,7 @@ class ReplyController extends Controller
 
         try {
 
-            $this->validateReply();
+            request()->validate(['body' => 'required|spamfree']);
 
             $reply->update(Request(['body']));
         } catch (\Exception $e) {
@@ -77,24 +71,10 @@ class ReplyController extends Controller
 
         $reply->delete();
 
-
         if (request()->expectsJson()) {
             return response(['status' => 'Reply Deleted']);
         }
 
-
-
         return back()->with('flash', 'The Reply has been deleted!!!');
-    }
-
-
-    public function validateReply()
-    {
-        $this->validate(request(), [
-            'body' => 'required'
-        ]);
-
-        //detect spam using Spam class
-        resolve(Spam::class)->detect(request('body'));
     }
 }

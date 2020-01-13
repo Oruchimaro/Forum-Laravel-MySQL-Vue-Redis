@@ -186,3 +186,15 @@
     handle the logic inside a detect() method.
     then add your class to Spam.php array of inspections.
     it will automatically be done.
+
+
+### 12. Adding Custom Validation Rules.
+    for that we create a new rule
+    $ php artisan make:rule CRule
+    then we register(extend laravels default validation rules) it in AppServiceProvider
+    then App\Rules we Specefy the condition to pass in passes() method
+    after that we add the message to message() method and dictionary file
+    \lang\en\validation.php
+
+    then we can use the validation in controller like before
+    request()->validate(['attr' => 'crule']);

@@ -19,18 +19,19 @@ class AppServiceProvider extends ServiceProvider
         /**Instead of using above code we will use the below one
          * because it wont start the query until the view is loaded
          */
-	  \View::composer('*', function ($view){
+        \View::composer('*', function ($view) {
 
-		//$view->with('channels', \App\Channel::all());
+            //$view->with('channels', \App\Channel::all());
 
-		  $channels = \Cache::rememberForever('channels', function(){
+            $channels = \Cache::rememberForever('channels', function () {
 
-			return Channel::all();
+                return Channel::all();
+            });
 
-		  });
+            $view->with('channels', $channels);
+        });
 
-		  $view->with('channels', $channels );
-
-      });
+        //This is needed for laravel to find this custom rule.
+        \Validator::extend('spamfree', 'App\Rules\SpamFree@passes');
     }
 }

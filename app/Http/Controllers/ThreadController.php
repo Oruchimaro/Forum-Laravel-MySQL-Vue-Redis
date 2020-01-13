@@ -6,7 +6,6 @@ use App\Thread;
 use App\Channel;
 use Illuminate\Http\Request;
 use App\Filters\ThreadFilters;
-use App\Inspections\Spam;
 
 class ThreadController extends Controller
 {
@@ -15,8 +14,6 @@ class ThreadController extends Controller
     {
         $this->middleware('auth')->except('index', 'show');
     }
-
-
 
 
     public function index(Channel $channel, ThreadFilters $filters)
@@ -31,8 +28,6 @@ class ThreadController extends Controller
     }
 
 
-
-
     public function create()
     {
         return view('threads.create');
@@ -41,16 +36,13 @@ class ThreadController extends Controller
 
 
 
-    public function store(Request $request, Spam $spam)
+    public function store(Request $request)
     {
-        $this->validate($request, [
-            'title' => ['required'],
-            'body' => ['required'],
+        request()->validate([
+            'title' => 'required|spamfree',
+            'body' => 'required|spamfree',
             'channel_id' => ['required', 'exists:channels,id']
         ]);
-
-        $spam->detect(request('title'));
-        $spam->detect(request('body'));
 
         $thread = Thread::create([
             'user_id' => auth()->id(),
