@@ -26,13 +26,14 @@
         }
     </style>
 
+    @yield ('header')
+
     <script>
-        window.App = {!! 
-		json_encode([
-			'signedIn' => Auth::check(),
-			'user' => Auth::user()
-		]) 
-	!!}
+        window.App = {!!
+            json_encode([
+                'signedIn' => Auth::check(),
+                'user' => Auth::user()
+            ]) !!}
     </script>
 </head>
 
