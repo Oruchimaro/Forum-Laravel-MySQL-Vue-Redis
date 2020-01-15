@@ -32,7 +32,7 @@
         </article>
     </div>
     <div class="card-footer">
-        {{ $thread->visits()->count() }} {{ Str::plural('View', $thread->visits()->count() ) }}
+        {{ $thread->visits }} {{ Str::plural('View', $thread->visits ) }}
     </div>
 </div>
 
