@@ -14,6 +14,6 @@ class UserAvatarController extends Controller
             'avatar_path' => request()->file('avatar')->store('avatars', 'public')
         ]); //if u need the name $file->hashName() will give it to u
 
-        return back();
+        return response([], 204);
     }
 }
