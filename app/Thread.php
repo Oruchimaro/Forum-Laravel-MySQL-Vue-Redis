@@ -4,11 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Events\ThreadRecievedNewReply;
+use Illuminate\Support\Facades\Redis;
 
 class Thread extends Model
 {
 
-    use RecordsActivity;  // app\RecordActivity trait
+    use RecordsActivity, RecordsVisits;  // app\RecordActivity trait
 
     /********************* Properties ***********************/
 
@@ -105,6 +106,8 @@ class Thread extends Model
 
         return $this->updated_at > cache($key);
     }
+
+
     /********************* Relationships ***********************/
 
     /**

@@ -31,6 +31,9 @@
             <p style="font-size:1.1em; letter-spacing: 1px">{{ $thread->body }}</p>
         </article>
     </div>
+    <div class="card-footer">
+        {{ $thread->visits()}} Views
+    </div>
 </div>
 
 @empty
