@@ -21,14 +21,14 @@ class AppServiceProvider extends ServiceProvider
          */
         \View::composer('*', function ($view) {
 
-            //$view->with('channels', \App\Channel::all());
+            $view->with('channels', \App\Channel::all());
 
-            $channels = \Cache::rememberForever('channels', function () {
+            //$channels = \Cache::rememberForever('channels', function () {
 
-                return Channel::all();
-            });
+            //return Channel::all();
+            //});
 
-            $view->with('channels', $channels);
+            //$view->with('channels', $channels);
         });
 
         //This is needed for laravel to find this custom rule.

@@ -69,4 +69,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(Reply::class)->latest();
     }
+
+
+    public function avatar()
+    {
+        if (!$this->avatar_path) {
+            return "/storage/avatars/default.png";
+        }
+        return "/storage/{$this->avatar_path}";
+    }
 }

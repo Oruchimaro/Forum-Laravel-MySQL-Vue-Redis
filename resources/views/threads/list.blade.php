@@ -3,6 +3,7 @@
 <div class="card mt-3 ">
     <div class="card-header d-flex justify-content-between align-items-center">
         <div>
+
             <h3 style="display:inline">
                 <a class="text-dark" href="{{ $thread->path() }}">
                     @if (auth()->check() && $thread->hasUpdatesFor(auth()->user()))
@@ -14,7 +15,8 @@
                     @endif
                 </a>
             </h3>
-            <h5>Posted By : <a href="{{ route('profiles.show', $thread->creator) }}">{{ $thread->creator->name }}</a></h5>
+            <h5><img src="{{ $thread->creator->avatar() }}" width="30" height="30" class="mr-1" alt="Avatar">
+                <a href="{{ route('profiles.show', $thread->creator) }}">{{ $thread->creator->name }}</a></h5>
         </div>
         <div class="d-flex">
             <span class="badge badge-info badge-pill p-1 m-1 flex-fill">

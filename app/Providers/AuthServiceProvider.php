@@ -16,6 +16,8 @@ class AuthServiceProvider extends ServiceProvider
         // 'App\Model' => 'App\Policies\ModelPolicy',
         'App\Thread' => 'App\Policies\ThreadPolicy',
         'App\Reply' => 'App\Policies\ReplyPolicy',
+        'App\User' => 'App\Policies\UserPolicy',
+
 
     ];
 
@@ -30,7 +32,7 @@ class AuthServiceProvider extends ServiceProvider
 
         //Doc 9
         Gate::before(function ($user) {
-            if ($user->name === 'Amir') return true;
+            if ($user->email === 'am@am.am') return true;
         });
     }
 }
