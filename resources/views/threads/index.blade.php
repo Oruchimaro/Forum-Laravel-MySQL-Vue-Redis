@@ -14,9 +14,11 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
-                        @foreach ($trending as $thread)
+                        @forelse ($trending as $thread)
                         <li class="list-group-item"><a href="{{ $thread->path }}">{{ $thread->title }}</a></li>
-                        @endforeach
+                        @empty
+                        <p>No Hot Threads HERE !!! </p>
+                        @endforelse
                     </ul>
                 </div>
             </div>
