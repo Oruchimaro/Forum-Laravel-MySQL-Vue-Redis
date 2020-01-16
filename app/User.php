@@ -26,6 +26,8 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'confirmed' => 'boolean'
+
     ];
 
 
@@ -45,6 +47,14 @@ class User extends Authenticatable
     public function activity()
     {
         return $this->hasMany(Activity::class);
+    }
+
+
+    //this method confirms the user account (sets confirmed to true)
+    public function confirm()
+    {
+        $this->confirmed = true;
+        $this->save();
     }
 
 
