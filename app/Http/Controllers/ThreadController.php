@@ -54,7 +54,7 @@ class ThreadController extends Controller
             'channel_id' => request('channel_id'),
             'title' => request('title'),
             'body' => request('body'),
-            'slug' => \Str::slug(request('title'))
+            'slug' => request('title') //we will add a mutator to do the slugifing job
         ]);
 
         return redirect($thread->path())
