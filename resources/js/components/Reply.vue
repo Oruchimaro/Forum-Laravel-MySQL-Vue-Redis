@@ -1,6 +1,6 @@
 <template>
-    <div :id="'reply-'+id" class="card my-3">
-        <div class="card-header d-flex">
+    <div :id="'reply-'+id" class="card  my-3">
+        <div class="card-header d-flex" :class="isBest ? 'best' : '' ">
             <div style="flex: 1">
                 <a :href="'/profiles/'+data.owner.name" v-text="data.owner.name"></a> said
                 <span class="text-muted" v-text="ago"></span>
@@ -27,11 +27,15 @@
             <div v-else v-html="body"></div>
         </div>
 
-        <div class="card-footer d-flex" v-if="canUpdate">
+        <div class="card-footer d-flex" >
+            <div v-if="canUpdate">
+                <button class="btn btn-warning btn-sm mr-2" @click="editing = true"> EDIT </button>
+                <button class="btn btn-danger btn-sm mr-2" @click="destroy"> DELETE </button>
+            </div>
+            <button class="btn  btn-sm ml-auto btn-success" 
+                    @click="markBestReply"
+                    v-show="! isBest" > best </button>
 
-            <button class="btn btn-warning btn-sm mr-2" @click="editing = true"> EDIT </button>
-
-            <button class="btn btn-danger btn-sm" @click="destroy"> DELETE </button>
         </div>
     </div>
 </template>
@@ -52,7 +56,8 @@
             return {
                 editing: false,
                 id: this.data.id,
-                body: this.data.body
+                body: this.data.body,
+                isBest: false
             };
         },
 
@@ -93,6 +98,18 @@
                 
                  this.$emit('deleted', this.data.id);
              },
+
+            markBestReply() {
+                this.isBest = true;
+            },
          }
     }
 </script>
+
+
+<style>
+.best {
+    background-color: #D0EF5F;
+    box-shadow: 5px 3px 10px #D0EF5F;
+}
+</style>
