@@ -12,11 +12,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 Auth::routes();
-Route::get('/register/confirm', 'Auth\RegisterConfirmationController@index')->name('confirm.email');
+Route::get('/register/confirm', 'Auth\RegisterConfirmationController@index')->name('register.confirm');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/threads', 'ThreadController@index')->name('threads.index');
+Route::get('/threads', 'ThreadController@index')->name('threads');
 Route::get('/threads/create', 'ThreadController@create')->name('threads.create');
 Route::post('/threads', 'ThreadController@store')->name('threads.store')->middleware('must-be-confirmed');
 Route::get('/threads/{channel}/{thread}', 'ThreadController@show')->name('threads.show');
