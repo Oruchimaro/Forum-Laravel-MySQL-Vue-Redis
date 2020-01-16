@@ -54,8 +54,11 @@ class ThreadController extends Controller
             'channel_id' => request('channel_id'),
             'title' => request('title'),
             'body' => request('body'),
-            'slug' => request('title') //we will add a mutator to do the slugifing job
         ]);
+
+        if (request()->wantsJson()) {
+            return response($thread, 201);
+        }
 
         return redirect($thread->path())
             ->with('flash', 'Your thread has beedn published !!!');

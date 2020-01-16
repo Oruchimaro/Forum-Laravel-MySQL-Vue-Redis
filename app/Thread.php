@@ -30,8 +30,12 @@ class Thread extends Model
         /** find every reply associated to the thread that is going to be deleted
          * and delete them with it.*/
         static::deleting(function ($thread) {
-
             $thread->replies->each->delete();
+        });
+
+
+        static::created(function ($thread) {
+            $thread->update(['slug' => $thread->title]); //now it will hit the mutator
         });
     }
 
@@ -123,12 +127,8 @@ class Thread extends Model
     {
         $slug = \Str::slug($value);
 
-        $original = $slug;
-
-        $count = 2;
-
         while (static::whereSlug($slug)->exists()) {
-            $slug = "{$original}-" . $count++;
+            $slug = "{$slug}-" . $this->id;
         }
 
         $this->attributes['slug'] = $slug;
