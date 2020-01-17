@@ -54,11 +54,11 @@
 
         data(){
             return {
+                reply: this.data,
                 editing: false,
                 id: this.data.id,
                 body: this.data.body,
-                isBest: false,
-                reply: this.data,
+                isBest: this.data.isBest,
             };
         },
 
@@ -67,6 +67,13 @@
                 return moment(this.data.created_at).fromNow() + ' ...' ;
             }
         },
+
+        created () {
+            window.events.$on('best-reply-selected', id => {
+                this.isBest = (id === this.id);
+            });
+        },
+
         methods: {
              update(){
                  axios.patch('/replies/' + this.data.id, {body: this.body})
@@ -93,7 +100,9 @@
              },
 
             markBestReply() {
-                this.isBest = true;
+                axios.post('/replies/' + this.data.id + '/best');
+
+                window.events.$emit('best-reply-selected', this.data.id);
             },
          }
     }

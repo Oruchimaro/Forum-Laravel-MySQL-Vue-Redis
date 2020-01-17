@@ -16,7 +16,7 @@ class Reply extends Model
 
     //when you cast to an array or json is there any custom attribute that u want to
     //append to it ? then use appends attribute to add any custom attribute to
-    protected $appends = ['favoritesCount', 'isFavorited'];
+    protected $appends = ['favoritesCount', 'isFavorited', 'isBest'];
 
 
     /** Overriding the parent boot method */
@@ -81,5 +81,12 @@ class Reply extends Model
     public function isBest()
     {
         return $this->thread->best_reply_id == $this->id;
+    }
+
+
+    //with this every reply knows if its the best (with appends)
+    public function getIsBestAttribute()
+    {
+        return $this->isBest();
     }
 }
