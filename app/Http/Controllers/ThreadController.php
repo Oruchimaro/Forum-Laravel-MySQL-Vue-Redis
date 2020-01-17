@@ -7,7 +7,7 @@ use App\Channel;
 use Illuminate\Http\Request;
 use App\Filters\ThreadFilters;
 use App\Trending;
-use Zttp\Zttp;
+use App\Rules\Recaptcha;
 
 class ThreadController extends Controller
 {
@@ -41,26 +41,14 @@ class ThreadController extends Controller
 
 
 
-
-    public function store(Request $request)
+    public function store(Request $request, Recaptcha $recaptcha)
     {
         request()->validate([
             'title' => 'required|spamfree',
             'body' => 'required|spamfree',
-            'channel_id' => ['required', 'exists:channels,id']
+            'channel_id' => ['required', 'exists:channels,id'],
+            'g-recaptcha-response' => ['required', $recaptcha] //recaptcha validation
         ]);
-
-        //recaptcha confirmation
-        $res = Zttp::asFormParams()->post('https://www.google.com/recaptcha/api/siteverify', [
-
-            'secret' => config('services.recaptcha.secret'),
-            'response' => $request->input('g-recaptcha-response'), //comes form with recaptcha element
-            'remoteip' => $_SERVER['REMOTE_ADDR'] //server global for user ip address
-        ]);
-
-        if (!$res->json()['success']) {
-            throw new \Exception('RECAPTCHA Failed !!!');
-        }
 
         $thread = Thread::create([
             'user_id' => auth()->id(),
