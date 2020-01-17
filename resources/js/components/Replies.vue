@@ -5,7 +5,9 @@
 </div>
 
 <paginator :dataSet="dataSet" @changed="fetch"></paginator>
-<new-reply @created="add" ></new-reply>
+<h5 v-if="$parent.locked" class="text-muted m-5"><i class="fa fa-bullhorn
+        text-danger"></i> This Thread Is Locked,No Reply Allowed <i class="fa fa-bullhorn text-danger"></i> </h5>
+<new-reply @created="add" v-else></new-reply>
 </div>
 </template>
 <script>
