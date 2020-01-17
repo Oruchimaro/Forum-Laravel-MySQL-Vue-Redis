@@ -18,6 +18,11 @@ class CreateThreadsTable extends Migration
             $table->string('slug')->unique()->nullable();
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('channel_id');
+            $table->string('title');
+            $table->text('body');
+            $table->unsignedInteger('replies_count')->default(0);
+            $table->unsignedInteger('visits')->default(0);
+            $table->boolean('locked')->default(false);
             $table->unsignedBigInteger('best_reply_id')->nullable();
 
             //setting the threads best_reply_id null on reply deletion
@@ -27,10 +32,6 @@ class CreateThreadsTable extends Migration
                 ->on('replies')
                 ->onDelete('set null');
 
-            $table->unsignedInteger('replies_count')->default(0);
-            $table->unsignedInteger('visits')->default(0);
-            $table->string('title');
-            $table->text('body');
             $table->timestamps();
         });
     }

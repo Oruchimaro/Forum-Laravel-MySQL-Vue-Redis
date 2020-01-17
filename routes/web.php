@@ -20,6 +20,7 @@ Route::get('/threads', 'ThreadController@index')->name('threads');
 Route::get('/threads/create', 'ThreadController@create')->name('threads.create');
 Route::post('/threads', 'ThreadController@store')->name('threads.store')->middleware('must-be-confirmed');
 Route::get('/threads/{channel}/{thread}', 'ThreadController@show')->name('threads.show');
+//Route::patch('/threads/{channel}/{thread}', 'ThreadController@update')->name('threads.update');
 Route::delete('/threads/{channel}/{thread}', 'ThreadController@destroy')->name('threads.delete');
 Route::get('/threads/{channel}', 'ThreadController@index')->name('threads.channel');
 
@@ -35,6 +36,8 @@ Route::delete('/replies/{reply}/favorites', 'FavoritesController@destroy')->name
 
 Route::post('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsController@store')->name('subscribe')->middleware('auth');
 Route::delete('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsController@destroy')->name('unsubscribe')->middleware('auth');
+
+Route::post('locked-threads/{thread}', 'LockedThreadsController@store')->name('locked-threads.store')->middleware('admin');
 
 Route::get('/profiles/{user}', 'ProfilesController@show')->name('profiles.show');
 

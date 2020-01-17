@@ -59,6 +59,12 @@ class User extends Authenticatable
     }
 
 
+    public function isAdmin()
+    {
+        return in_array($this->name, ['Amir', 'amir', 'Majid', 'majid']);
+    }
+
+
     /** the key that is used for saving a users last visit to cahce */
     public function visitedThreadCacheKey($thread)
     {
