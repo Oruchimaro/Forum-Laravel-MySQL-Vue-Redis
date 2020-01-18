@@ -89,4 +89,9 @@ class Reply extends Model
     {
         return $this->isBest();
     }
+
+    public function getBodyAttribute($body)
+    {
+        return \Purifier::clean($body);
+    }
 }

@@ -11,8 +11,11 @@ class CreatePostRequest extends FormRequest
 
     public function authorize()
     {
-        //protect against spam creating replies
-        return Gate::allows('create', new \App\Reply);
+        $lastReply = auth()->user()->fresh()->lastReply;
+
+        if (!$lastReply) return true;
+
+        return !$lastReply->wasJustPublished();
     }
 
     protected function failedAuthorization()
