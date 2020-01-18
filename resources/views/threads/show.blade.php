@@ -8,37 +8,13 @@
 <thread-view :thread="{{ $thread }}" inline-template>
     <div class="container">
         <div class="row ">
-            <div class="col-md-8">
+            <div class="col-md-8" v-cloak>
 
                 <!-- Thread Card -->
-                <div class="card">
-                    <div class="card-header">
-                        <img src="{{ $thread->creator->avatar() }}" width="50" height="50" class="mr-1" alt="Avatar">
+                @include ('threads.question')
 
-                        <a href="{{ route('profiles.show', $thread->creator->name) }}">
-                            {{ $thread->creator->name }}
-                        </a> posted:
-                        <strong>{{ $thread->title }}</strong>
-                    </div>
-
-                    <div class="card-body">
-                        {{ $thread->body }}
-                    </div>
-                    <div class="card-footer">
-                        @can('update', $thread)
-                        <form action="{{ $thread->path() }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                        @endcan
-                    </div>
-                </div>
-
-
+                <!-- Replies section -->
                 <replies @added="repliesCount++" @removed="repliesCount--"></replies>
-
-
             </div>
 
             <!-- Right Column -->

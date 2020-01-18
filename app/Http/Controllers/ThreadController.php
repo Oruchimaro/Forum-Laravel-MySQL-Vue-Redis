@@ -92,8 +92,9 @@ class ThreadController extends Controller
 
         $data = request()->validate([
             'title' => 'required|spamfree',
-            'body' => 'required|spamfree',
+            'body' => 'required|spamfree'
         ]);
+        //TODO: Make the slug change
         $thread->update($data);
         return $thread;
     }
