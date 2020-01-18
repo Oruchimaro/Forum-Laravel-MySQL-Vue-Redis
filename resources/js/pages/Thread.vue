@@ -33,12 +33,15 @@ export default{
         update() {
             let uri = `/threads/${this.thread.channel.slug}/${this.thread.slug}`
             axios.patch(uri, this.form)
-            .then(() => {
+            .then((response) => {
                 this.editing = false;
                 this.title= this.form.title;
                 this.body= this.form.body;
                 flash('Your Thread Has Updated !');
-            })
+                //console.log(response.data.slug);
+                //change the slug for url
+                window.history.pushState(null, 'newslug', response.data.slug);
+            });
         },
 
         resetForm() {

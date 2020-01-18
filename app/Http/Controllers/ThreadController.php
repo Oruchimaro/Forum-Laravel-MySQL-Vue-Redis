@@ -94,9 +94,14 @@ class ThreadController extends Controller
             'title' => 'required|spamfree',
             'body' => 'required|spamfree'
         ]);
-        //TODO: Make the slug change
-        $thread->update($data);
-        return $thread;
+        $thread->update([
+            'title' => request('title'),
+            'body' => request('body'),
+            'slug' => request('title')
+        ]);
+        //TODO: Make the redis key change 
+
+        return response($thread, 200);
     }
 
 

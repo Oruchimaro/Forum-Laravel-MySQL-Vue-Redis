@@ -3827,11 +3827,14 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var uri = "/threads/".concat(this.thread.channel.slug, "/").concat(this.thread.slug);
-      axios.patch(uri, this.form).then(function () {
+      axios.patch(uri, this.form).then(function (response) {
         _this.editing = false;
         _this.title = _this.form.title;
         _this.body = _this.form.body;
-        flash('Your Thread Has Updated !');
+        flash('Your Thread Has Updated !'); //console.log(response.data.slug);
+        //change the slug for url
+
+        window.history.pushState(null, 'newslug', response.data.slug);
       });
     },
     resetForm: function resetForm() {
