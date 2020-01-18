@@ -2,17 +2,13 @@
     <div>
         <div v-if="signedIn">
             <div class="form-group">
-                <textarea v-model="body" 
-                          placeholder="have anything to say..." 
-                          name="body" 
-                          id="body" 
-                          rows="10" 
-                          class="form-control">
-                </textarea>
+                <wysiwyg name="body" id="body" v-model="body" placeholder="Say
+                somthing..." ref="trix" ></wysiwyg>
             </div>
 
-            <button  @click="addReply" class="btn btn-primary" >Post</button>
-            <button class="btn btn-danger" @click="cancel"> Cancel </button>
+            <button  @click="addReply" class="btn btn-primary btn-block">
+                <strong> Post Reply </strong>
+            </button>
 
         </div>
 
@@ -41,15 +37,11 @@ export default {
             })
             .then(({ data }) => {
                 this.body = "";
+                this.$refs.trix.$refs.trix.value = '';
                 flash("Your reply has been posted");
                 this.$emit("created", data);
             });
         },
-
-        cancel() {
-            this.editing = false;
-            this.body = "";
-        }
     },
 
 

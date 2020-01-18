@@ -28,7 +28,7 @@
 
     <div class="card-body">
         <article>
-            <p style="font-size:1.1em; letter-spacing: 1px">{{ $thread->body }}</p>
+            <p style="font-size:1.1em; letter-spacing: 1px">{!! $thread->body !!}</p>
         </article>
     </div>
     <div class="card-footer">
