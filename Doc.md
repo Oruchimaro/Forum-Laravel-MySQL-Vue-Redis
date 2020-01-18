@@ -221,3 +221,10 @@
 
     then we can handle it in handler.php 
     This is very basic and can be used when we are using js.
+
+###Implement trix WYSIWYG Editor
+    $ npm install trix
+    $ cp node_modules/trix/dist/trix.css public/css/vendor/
+
+    add the css file to layout.app or anypage you need to have it
+
